@@ -4,16 +4,16 @@ const router = require('express').Router();
 const Tests = require('../data/config/db-helpers');
 
 //<------------ GET REQUESTS ----------------
-router.get('/tests', (req, res) => {
+router.get('/', (req, res) => {
 
     Tests.getTests()
         .then( tests => {
-            res.status(201).json(tests)
+            res.status(200).json(tests)
         })
-        .catch(err => res.status(500).json(err.response))
+        // .catch(err => res.status(500).json(err.response))
 })
 //<------------ POST REQUESTS ----------------
-router.post('/tests', (req, res) => {
+router.post('/', (req, res) => {
 
     const test = req.body;
 
@@ -28,7 +28,7 @@ router.post('/tests', (req, res) => {
 
 
 //<------------ DELETE REQUESTS ----------------
-router.delete('/tests/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
 
     const { id } = req.params;
 

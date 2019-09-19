@@ -7,7 +7,7 @@ server.use(express.json());
 
 //import endpoints
 const endpoints = require('./endpoints/endpoints')
-server.use('/api', endpoints)
+server.use('/api/tests', endpoints)
 
 //sanity check
 server.get('/', (req, res) => {

@@ -6,8 +6,13 @@ module.exports = {
     removeTest
 };
 
-function getTests () {
+async function getTests (test) {
+    const [ id ] =  await db('tests')
+        .insert(test, 'id')
+        
     return db('tests')
+        .where({ id })
+        .first()
 }
 function addTest (test) {
     return db('tests')
