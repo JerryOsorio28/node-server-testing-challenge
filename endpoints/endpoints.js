@@ -1,12 +1,12 @@
 //import express router
 const router = require('express').Router();
 //import datadase
-const db = require('../data/config/db-config');
+const Tests = require('../data/config/db-helpers');
 
 //<------------ GET REQUESTS ----------------
 router.get('/tests', (req, res) => {
 
-    db('tests')
+    Tests.getTests()
         .then( tests => {
             res.status(201).json(tests)
         })
@@ -15,13 +15,12 @@ router.get('/tests', (req, res) => {
 //<------------ POST REQUESTS ----------------
 router.post('/tests', (req, res) => {
 
-    const name = req.body;
+    const test = req.body;
 
-    db('tests').insert(name)
-        .then( name => {
-            console.log(name)
+    Tests.addTest(test)
+        .then( test => {
             res.status(201).json({
-                message: `${name} has been sucessfully added to the data`
+                message: `${test} has been sucessfully added to the data`
             })
         })
         .catch(err => res.status(500).json(err.response))
@@ -29,6 +28,17 @@ router.post('/tests', (req, res) => {
 
 
 //<------------ DELETE REQUESTS ----------------
+router.delete('/tests/:id', (req, res) => {
 
+    const { id } = req.params;
+
+    Tests.removeTest(id)
+        .then( deleted => {
+            res.status(200).json({
+                message: `${deleted} has been sucessfully deleted`
+            })
+        })
+        .catch(err => res.status(500).json(err.response))
+})
 
 module.exports = router;
